@@ -8,6 +8,7 @@ public class MapDestroyer : MonoBehaviour
     public Tilemap tilemap;
 
     public Tile wallTile;
+    public Tile borderTile;
     public Tile destructibleTile;
 
     public GameObject explosionPrefab;
@@ -39,7 +40,7 @@ public class MapDestroyer : MonoBehaviour
     bool ExplodeBlocks (Vector3Int cell)
     {
         Tile tile =tilemap.GetTile<Tile>(cell);
-        if (tile == wallTile)
+        if (tile == wallTile || tile == borderTile)
         {
             return false;
         }
