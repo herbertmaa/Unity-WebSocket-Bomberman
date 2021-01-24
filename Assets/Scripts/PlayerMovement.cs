@@ -4,13 +4,10 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float moveSpeed = 5f;
     public Transform movePoint;
-
-    // on the Grid, need to make a child object called colliders, and put all collision objects on there, and make it all on the same layer
     public LayerMask whatStopsMovement;
-
     public Animator animator;
+    public float moveSpeed = 5f;
 
     // Start is called before the first frame update
     void Start()
