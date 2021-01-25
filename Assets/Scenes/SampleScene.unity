@@ -133,7 +133,7 @@ GameObject:
   - component: {fileID: 439926671}
   m_Layer: 0
   m_Name: BombSpawner
-  m_TagString: Untagged
+  m_TagString: BombSpawner
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -153,6 +153,7 @@ MonoBehaviour:
   tilemap: {fileID: 1326647503}
   bombPrefab: {fileID: 7261730483673784227, guid: c664427ed1f647348a11630c9a2656d2,
     type: 3}
+  networkManager: {fileID: 0}
 --- !u!4 &439926672
 Transform:
   m_ObjectHideFlags: 0
@@ -267,9 +268,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 519420028}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed976426f171e40419aafa33cb12ebd5, type: 3}
+  m_Script: {fileID: 11500000, guid: 138ca452e98634b049ebcbf8a283a150, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bombSpawner: {fileID: 0}
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
@@ -297,7 +299,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 4.785219
+  orthographic size: 5.0928955
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
