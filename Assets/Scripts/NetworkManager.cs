@@ -117,13 +117,15 @@ public class NetworkManager : MonoBehaviour
 
     private void HandleRequest(String request)
     {
-        Debug.Log("In Handle Request");
-        Debug.Log(request);
+        Debug.Log("Network manager handling server request");
 
+        string[] request_params = request.Split(' ');
 
         if (request.Contains("bomb") && bombSpawner != null)
         {
-            bombSpawner.SpawnBomb(-7.5f, 1.5f);
+            float x = float.Parse(request_params[1]);
+            float y = float.Parse(request_params[2]);
+            bombSpawner.SpawnBomb(x, y);
         }
     }
 

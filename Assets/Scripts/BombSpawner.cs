@@ -44,7 +44,7 @@ public class BombSpawner : MonoBehaviour
 
     public void SpawnBomb(float x, float y)
     {
-        Vector3 position = new Vector3(-7.5f, 3.5f);
+        Vector3 position = new Vector3(x, y);
         jobs.Enqueue(() => {
             Instantiate(bombPrefab, position, Quaternion.identity);
         });
