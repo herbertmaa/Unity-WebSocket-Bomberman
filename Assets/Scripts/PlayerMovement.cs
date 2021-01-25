@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -8,11 +9,13 @@ public class PlayerMovement : MonoBehaviour
     public LayerMask whatStopsMovement;
     public Animator animator;
     public float moveSpeed = 5f;
-
+    public NetworkManager networkManager = null;
     // Start is called before the first frame update
     void Start()
     {
         movePoint.parent = null;
+        networkManager = GameObject.FindWithTag("MainCamera").GetComponent<NetworkManager>();
+        if (networkManager == null) Debug.Log("Unable to get a reference of the Network Manager");
     }
 
     // Update is called once per frame
@@ -24,15 +27,24 @@ public class PlayerMovement : MonoBehaviour
         {
             if (Mathf.Abs(Input.GetAxisRaw("Horizontal")) == 1f)
             {
+                // Keyleft / KeyRight was pressed
                 if (!Physics2D.OverlapCircle(movePoint.position + new Vector3(Input.GetAxisRaw("Horizontal"), 0f, 0f), 0.2f, whatStopsMovement))
                 {
                     movePoint.position += new Vector3(Input.GetAxisRaw("Horizontal"), 0f, 0f);
+                    Vector2 v2 = movePoint.position;
+                    BroadcastMovement(v2.x, v2.y);
+
                 }
             } else if (Mathf.Abs(Input.GetAxisRaw("Vertical")) == 1f)
             {
+
+                // Keydown / Keyup was pressed
                 if (!Physics2D.OverlapCircle(movePoint.position + new Vector3(0f, Input.GetAxisRaw("Vertical"), 0f), 0.2f, whatStopsMovement))
                 {
                     movePoint.position += new Vector3(0f, Input.GetAxisRaw("Vertical"), 0f);
+                    Vector2 v2 = movePoint.position;              
+                    BroadcastMovement(v2.x, v2.y);
+
                 }
             }
 
@@ -44,52 +56,11 @@ public class PlayerMovement : MonoBehaviour
     }
 
 
-    //// Start is called before the first frame update
-    //public float moveSpeed = 5f;
-    //private bool prevStatusHorizontal;
-    //private bool prevStatusVertical;
-    //private bool moveHorizontal;
+    private void BroadcastMovement(float x, float y)
+    {
+        Debug.Log("player is sending a message: " + x + " " + y);
+        string message = "move " + x + " " + y;
+        networkManager.BroadCastMessage(message);
 
-    //public Rigidbody2D rb;
-    //public Animator animator;
-
-    //Vector2 movement;
-
-    //// Update is called once per frame
-    //void Update()
-    //{
-    //    bool statusHorizontal = Input.GetButton("Horizontal");
-    //    bool statusVertical = Input.GetButton("Vertical");
-
-    //    if (statusHorizontal && !prevStatusHorizontal)
-    //        moveHorizontal = true;
-
-    //    if (statusVertical && !prevStatusVertical || !statusHorizontal)
-    //        moveHorizontal = false;
-
-    //    movement = new Vector2(0, 0);
-
-    //    // Input
-    //    if (statusVertical && !moveHorizontal)
-    //    {
-    //        movement.y = Input.GetAxisRaw("Vertical");
-    //    } else if (statusHorizontal)
-    //    {
-    //        movement.x = Input.GetAxisRaw("Horizontal");
-    //    }
-
-    //    animator.SetFloat("Horizontal", movement.x);
-    //    animator.SetFloat("Vertical", movement.y);
-    //    animator.SetFloat("Speed", movement.sqrMagnitude);
-
-    //    prevStatusHorizontal = statusHorizontal;
-    //    prevStatusVertical = statusVertical;
-    //}
-
-    //void FixedUpdate()
-    //{
-    //    // movement
-    //    rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
-    //}
-
+    }
 }
