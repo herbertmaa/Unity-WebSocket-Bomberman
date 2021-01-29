@@ -5,6 +5,14 @@ TagManager:
   serializedVersion: 2
   tags:
   - BombSpawner
+  - EnemyMovement
+  - EnemySpawner
+  - PlayerSpawner
+  - PlayerMovePoint
+  - Enemy
+  - EnemyMovePoint
+  - NetworkManager
+  - Explosion
   layers:
   - Default
   - TransparentFX

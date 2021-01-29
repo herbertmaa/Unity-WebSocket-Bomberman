@@ -12,7 +12,7 @@ public class BombSpawner : MonoBehaviour
 
     void Start()
     {
-        networkManager = GameObject.FindWithTag("MainCamera").GetComponent<NetworkManager>();
+        networkManager = GameObject.FindWithTag("NetworkManager").GetComponent<NetworkManager>();
         if (networkManager == null) Debug.Log("Unable to get a reference of the Network Manager");
     }
 
@@ -34,17 +34,19 @@ public class BombSpawner : MonoBehaviour
         }
     }
 
-    private void BroadCastPlacement(float x, float y)
+    public void BroadCastPlacement(float x, float y)
     {
         Debug.Log("player is sending a bomb message: " + x + " " + y);
         string message = "bomb " + x + " " + y;
         networkManager.BroadCastMessage(message);
 
     }
-
+    //Doesnt work when using WorldtoCell
     public void SpawnBomb(float x, float y)
     {
         Vector3 position = new Vector3(x, y);
+        //Vector3Int cell = tilemap.WorldToCell(position);
+        //Vector3 cellCenterPos = tilemap.GetCellCenterWorld(cell);
         jobs.Enqueue(() => {
             Instantiate(bombPrefab, position, Quaternion.identity);
         });
