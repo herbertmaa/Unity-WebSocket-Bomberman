@@ -10,3 +10,4 @@ This project was created to provide a template for Unity developers to
 create a multiplayer game, the NetworkManager class and WebSocketNetworkManager class
 was created to be as extendable as possible, feel free to utilize these classes in your own projects
 
+Code for the JavaScript [WebSocket Hub](https://github.com/herbertmaa/Bomberman-WebSocket-Hub).
