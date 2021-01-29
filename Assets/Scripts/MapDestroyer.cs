@@ -12,6 +12,8 @@ public class MapDestroyer : MonoBehaviour
     public Tile destructibleTile;
 
     public GameObject explosionPrefab;
+    private GameObject explosionClone;
+    public float countdown = .4f;
 
     public void Explode(Vector2 pos)
     {
@@ -45,7 +47,8 @@ public class MapDestroyer : MonoBehaviour
             return false;
         }
         Vector3 pos = tilemap.GetCellCenterWorld(cell);
-        Instantiate(explosionPrefab, pos, Quaternion.identity);
+        explosionClone = Instantiate(explosionPrefab, pos, Quaternion.identity);
+        Destroy(explosionClone, countdown); 
         if (tile == destructibleTile)
         {
             tilemap.SetTile(cell, null);
