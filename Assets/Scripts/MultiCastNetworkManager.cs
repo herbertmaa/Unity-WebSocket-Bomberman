@@ -75,7 +75,7 @@ public class MultiCastNetworkManager : NetworkManager
         catch (Exception e)
         {
             Debug.Log(e);
-            Debug.Log("failed to connect to server");
+            Debug.Log("Failed to connect to server");
         }
     }
 
@@ -117,6 +117,8 @@ public class MultiCastNetworkManager : NetworkManager
         request = Regex.Replace(request, @"[^\u0009\u000A\u000D\u0020-\u007E]", "");
 
         string[] request_params = request.Split(' ');
+        
+        //Handling messages from server.
         if (request.Contains("new_connection"))
         {
             string unique_id = request_params[request_params.Length - 1];
